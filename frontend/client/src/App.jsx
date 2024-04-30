@@ -1,4 +1,4 @@
-import './App.css'
+
 import Web3Provider from './context/Web3Provider'
 import { RouterProvider } from 'react-router-dom';
 import { routes } from './routes/Routes';
