@@ -24,7 +24,14 @@ const UplaodImage = () => {
       const formData=new FormData();
       formData.append("file",file);
       const url="http://localhost:3000/api/uploadimage";
-    const res=await axios.post(url,formData);
+      const token=localStorage('token');
+      const config={
+        Headers:{
+          "x-access":token
+        }
+      }
+
+    const res=await axios.post(url,formData,config);
     
       toast.success("image uploaded sucessfully");
       await uplaodImageHash(res.data.ipfsHash);

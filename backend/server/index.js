@@ -7,9 +7,11 @@ app.use(cors());
 app.use(express.json());
 const authentication=require('./routes/auth.routes');
 const uplaodImageRoute=require('./routes/upload.routes');
+const getImageRoutes=require('./routes/getImage.routes');
 
 app.use('/api',authentication);
 app.use('/api',uplaodImageRoute);
+app.use('/api',getImageRoutes);
 
 async function serverStart(){
     try {

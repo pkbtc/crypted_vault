@@ -1,5 +1,7 @@
 const ethers=require('ethers');
 const UserModel=require('../models/User');
+const jwt=require('jsonwebtoken');
+const {JWT_SECRETKEY}=require('../config/serverConfig');
 async function authController(req,res,next){
     try {
         const {signature}=req.body;
@@ -12,11 +14,14 @@ async function authController(req,res,next){
     if(address.toLowerCase()===recoveredAddress.toLowerCase()){
         const address=recoveredAddress.toLowerCase();
         const user=await UserModel.findOne({userAddress:address});
+        const token=jwt.sign({
+            address
+        },JWT_SECRETKEY);
         if(!user){
             const userData=await UserModel.create({userAddress:address});
             console.log(userData);
         }
-        res.status(200).json({message:"authencation sucessfull"});
+        res.status(200).json({message:"authencation sucessfull",token});
     }
     else{
         res.status(500).json({message:"authencation failed"});

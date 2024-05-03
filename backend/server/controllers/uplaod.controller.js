@@ -5,7 +5,7 @@ const {generateEncryptionKey}=require('../utils/generateKey');
 const {encryptFile}=require('../utils/encryption');
 async function uploadControler(req,res,next){
     try {
-        const address="0x04584CAa92E5ebc02482515852f05Dd0d9Ab2ac5";
+       const address=req.address;
        const userAddress=address.toLowerCase();
        const user=await UserModel.findOne({userAddress:userAddress});
        if(!user){

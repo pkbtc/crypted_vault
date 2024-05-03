@@ -19,7 +19,10 @@ export const ConnectWallet=async()=>{
         };
         const url=`http://localhost:3000/api/authentication?address=${selectedAccount}`;
         const res=await axios.post(url,dataSignature);
-        console.log(res.message);
+        const token=res.data.token;
+        localStorage.setItem('token',token);
+        
+        console.log(res.data.message);
         const contractAddress="0x683aefcae3a56fe6a64ad6e1f56d2f49d0520435";
         const contract= new ethers.Contract(contractAddress,Abi,signer);
         return {contract,selectedAccount};
