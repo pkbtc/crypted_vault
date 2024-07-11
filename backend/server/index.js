@@ -11,10 +11,10 @@ app.use(express.json());
 app.use('/api',router);
 app.use('/api',imageRoute);
 app.use('/api',getRouter);
-
+const port=process.env.PORT || 8080;
 await connectDB()
         .then(()=>{
-            app.listen(3000,()=>{
+            app.listen(port,()=>{
                 console.log("server is running on port 3000")
             })
         })
