@@ -1,5 +1,6 @@
 import {ethers} from "ethers"
 import User from "../models/User.js";
+import jwt from "jsonwebtoken";
 
 const auth=async(req,res,next)=>{
     try {
@@ -19,7 +20,8 @@ const auth=async(req,res,next)=>{
                 user = await User.create({ userAddress });
                 console.log(user);
             }
-            res.status(200).json({message:"success"});
+            const token=jwt.sign({userAddress},process.env.JWT_SECRET);
+            res.status(200).json({message:"success",token});
         }
         else{
             res.status(404).json({message:"invalid signature"});

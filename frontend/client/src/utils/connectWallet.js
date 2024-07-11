@@ -1,5 +1,5 @@
 import {ethers} from "ethers"
-import contractABI from "../constants/contractABI.json"
+import abi from "./ABI.json"
 import toast from "react-hot-toast"
 import axios from "axios"
 export const connectWallet = async()=>{
@@ -22,18 +22,18 @@ export const connectWallet = async()=>{
      const dataSignature = {
       signature
      }
-     console.log(signature);
-     console.log("hit");
+     
      const url=`http://localhost:3000/api/auth?address=${selectedAccount}`;
      const res=await axios.post(url,dataSignature);
-     console.log(res.data);
-     console.log("hit after");
+     const token=res.data.token;
+     localStorage.setItem("token",token);
+     
      
      
      
 
-     const contractAddress = "0x53739B9302192a91979b99b2E645B3a42d941318"
-     const contractInstance = new ethers.Contract(contractAddress,contractABI,signer);
+     const contractAddress = "0x305D4DF94aB7dEaab193bbFD99bA177613C6a6e5";
+     const contractInstance = new ethers.Contract(contractAddress,abi,signer);
      return {contractInstance,selectedAccount}
  } catch (error) {
     toast.error("Wallet connection failed")
